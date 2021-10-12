@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DishesController;
+use App\Http\Controllers\MenusController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Dish;
 /*
@@ -22,3 +23,5 @@ Route::post('/dishes/add', [DishesController::class, 'postNewDish']);
 Route::get('/dishes/delete/{id}', [DishesController::class, 'deleteDish']);
 Route::get('/dishes/edit/{id}', [DishesController::class, 'editDish']);
 Route::post('/dishes/edit/{id}', [DishesController::class, 'postEditDish']);
+
+Route::get('/menus', [MenusController::class, 'show']);
