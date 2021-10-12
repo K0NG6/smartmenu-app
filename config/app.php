@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'smartmenu-app '),
+    'name' => env('APP_NAME', 'Smartmenu'),
 
     /*
     |--------------------------------------------------------------------------
