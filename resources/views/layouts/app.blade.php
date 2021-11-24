@@ -21,6 +21,7 @@
     <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/dragula-js/dragula.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/adminlte.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}" rel="stylesheet">
 </head>
@@ -130,32 +131,59 @@
 </body>
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+<script src="{{asset('plugins/dragula-js/dragula.min.js')}}"></script>
 <script src="{{asset('js/adminlte.js')}}"></script>
 <script>
-    function onDragStart(event) {
-        event
-            .dataTransfer
-            .setData('text/plain', event.target.id);
+    dragula([document.querySelector('.dishesDrag'), document.querySelector('.dishesDrop')],{
 
-        event
-            .currentTarget
-    }
-    function onDragOver(event) {
-        event.preventDefault();
-    }
-    function onDrop(event) {
-        event.preventDefault()
-        const id = event
-            .dataTransfer
-            .getData('text');
+        // or 'horizontal'
+        direction: 'vertical',
 
-        const draggableElement = document.getElementById(id);
-        const dropzone = event.target;
-        console.log(draggableElement);
-        dropzone.appendChild(draggableElement);
+        // determine whether to copy elements rather than moving
+        // if a method is passed, it'll be called whenever an element starts being dragged in order to decide whether it should follow copy behavior or not.
+        copy: false,
 
-        event
-            .dataTransfer
-    }
+        // determine whether to sort elements in copy-source containers.
+        copySortSource: false,
+
+        // spilling will put the element back where it was dragged from, if this is true
+        revertOnSpill: false,
+
+        // spilling will `.remove` the element, if this is true
+        removeOnSpill: false,
+
+        // set the element that gets mirror elements appended
+        mirrorContainer: document.body,
+
+        // allows users to select input text
+        ignoreInputTextSelection: true,
+
+        // allows users to select the amount of movement on the X axis before it is considered a drag instead of a click
+        slideFactorX: 0,
+
+        // allows users to select the amount of movement on the Y axis before it is considered a drag instead of a click
+        slideFactorY: 0,
+
+        // only elements in drake.containers will be taken into account
+        isContainer: function (el) {
+            return false;
+        },
+
+        // elements are always draggable by default
+        moves: function (el, source, handle, sibling) {
+            return true;
+        },
+
+        // elements can be dropped in any of the `containers` by default
+        accepts: function (el, target, source, sibling) {
+            return true;
+        },
+
+        // don't prevent any drags from initiating by default
+        invalid: function (el, handle) {
+            return false;
+        }
+
+    });
 </script>
 </html>
